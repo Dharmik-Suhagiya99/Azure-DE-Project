@@ -2,7 +2,7 @@
 	"name": "httpcsv",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "HttpServer1",
+			"referenceName": "HttpServer",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "HttpServerLocation",
-				"relativeUrl": "Dharmik-Suhagiya99/Azure-DE-Project/blob/master/Data/"
+				"relativeUrl": "Dharmik-Suhagiya99/Azure-DE-Project/master/Data/"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
