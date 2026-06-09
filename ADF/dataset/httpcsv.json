@@ -5,12 +5,20 @@
 			"referenceName": "HttpServer",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"csvname": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "HttpServerLocation",
-				"relativeUrl": "Dharmik-Suhagiya99/Azure-DE-Project/master/Data/"
+				"relativeUrl": {
+					"value": "@concat('repos/Dharmik-Suhagiya99/Azure-DE-Project/contents/Data/', dataset().csvname)",
+					"type": "Expression"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
