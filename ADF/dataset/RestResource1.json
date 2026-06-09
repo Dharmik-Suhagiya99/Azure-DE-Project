@@ -8,7 +8,7 @@
 		"annotations": [],
 		"type": "RestResource",
 		"typeProperties": {
-			"relativeUrl": "Dharmik-Suhagiya99/Azure-DE-Project/master/Data"
+			"relativeUrl": "Dharmik-Suhagiya99/Azure-DE-Project/blob/master/Data"
 		},
 		"schema": []
 	}
