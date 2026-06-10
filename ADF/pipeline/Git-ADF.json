@@ -1,9 +1,9 @@
 {
-	"name": "pipeline1",
+	"name": "Git-ADF",
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup1",
+				"name": "Lookup in git repo",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -33,11 +33,11 @@
 				}
 			},
 			{
-				"name": "ForEach1",
+				"name": "ForEach file",
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Lookup1",
+						"activity": "Lookup in git repo",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -46,13 +46,13 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Lookup1').output.value",
+						"value": "@activity('Lookup in git repo').output.value",
 						"type": "Expression"
 					},
 					"isSequential": false,
 					"activities": [
 						{
-							"name": "Copy data1",
+							"name": "Copy data to Bronze",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
