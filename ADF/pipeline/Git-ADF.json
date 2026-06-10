@@ -26,7 +26,7 @@
 						}
 					},
 					"dataset": {
-						"referenceName": "Json",
+						"referenceName": "git_metadata",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false

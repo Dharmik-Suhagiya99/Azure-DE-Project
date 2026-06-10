@@ -1,5 +1,5 @@
 {
-	"name": "Json",
+	"name": "git_metadata",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "HttpServer",
