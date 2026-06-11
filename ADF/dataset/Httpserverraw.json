@@ -1,8 +1,8 @@
 {
-	"name": "httpcsv",
+	"name": "Httpserverraw",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "HttpServer",
+			"referenceName": "HttpServerraw",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
@@ -16,13 +16,13 @@
 			"location": {
 				"type": "HttpServerLocation",
 				"relativeUrl": {
-					"value": "\n@concat('Dharmik-Suhagiya99/Azure-DE-Project/master/Data/', dataset().csvname)",
+					"value": "@concat('Dharmik-Suhagiya99/Azure-DE-Project/master/Data/', dataset().csvname)",
 					"type": "Expression"
 				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
-			"firstRowAsHeader": false,
+			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
 		"schema": []

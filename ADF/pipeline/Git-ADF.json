@@ -97,7 +97,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "httpcsv",
+									"referenceName": "Httpserverraw",
 									"type": "DatasetReference",
 									"parameters": {
 										"csvname": {
