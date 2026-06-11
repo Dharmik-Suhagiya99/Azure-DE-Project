@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'HttpServer'"
 		},
+		"HttpServerraw_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'HttpServerraw'"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://storagedatafactoryds.dfs.core.windows.net/"
@@ -24,6 +28,14 @@
 			"defaultValue": "https://api.github.com/"
 		},
 		"HttpServer_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "dsadmin"
+		},
+		"HttpServerraw_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com/"
+		},
+		"HttpServerraw_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "dsadmin"
 		}
@@ -70,27 +82,24 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/git_metadata')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
+			"name": "[concat(parameters('factoryName'), '/HttpServerraw')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"linkedServiceName": {
-					"referenceName": "HttpServer",
-					"type": "LinkedServiceReference"
-				},
 				"annotations": [],
-				"type": "Json",
+				"type": "HttpServer",
 				"typeProperties": {
-					"location": {
-						"type": "HttpServerLocation",
-						"relativeUrl": "repos/Dharmik-Suhagiya99/Azure-DE-Project/contents/Data"
+					"url": "[parameters('HttpServerraw_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Basic",
+					"userName": "[parameters('HttpServerraw_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('HttpServerraw_password')]"
 					}
-				},
-				"schema": {}
+				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/HttpServer')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/bronze')]",
@@ -130,6 +139,29 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/git_metadata')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "HttpServer",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": "repos/Dharmik-Suhagiya99/Azure-DE-Project/contents/Data"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/HttpServer')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/httpcsv')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -149,7 +181,7 @@
 					"location": {
 						"type": "HttpServerLocation",
 						"relativeUrl": {
-							"value": "@concat('repos/Dharmik-Suhagiya99/Azure-DE-Project/contents/Data/', dataset().csvname)",
+							"value": "\n@concat('Dharmik-Suhagiya99/Azure-DE-Project/master/Data/', dataset().csvname)",
 							"type": "Expression"
 						}
 					},
@@ -162,6 +194,41 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/HttpServer')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Httpserverraw')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "HttpServerraw",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"csvname": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": {
+							"value": "@concat('Dharmik-Suhagiya99/Azure-DE-Project/master/Data/', dataset().csvname)",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/HttpServerraw')]"
 			]
 		},
 		{
@@ -266,7 +333,7 @@
 									},
 									"inputs": [
 										{
-											"referenceName": "httpcsv",
+											"referenceName": "Httpserverraw",
 											"type": "DatasetReference",
 											"parameters": {
 												"csvname": {
@@ -303,7 +370,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/git_metadata')]",
-				"[concat(variables('factoryId'), '/datasets/httpcsv')]",
+				"[concat(variables('factoryId'), '/datasets/Httpserverraw')]",
 				"[concat(variables('factoryId'), '/datasets/bronze')]"
 			]
 		}

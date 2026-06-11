@@ -11,6 +11,9 @@
 		"HttpServer_password": {
 			"value": ""
 		},
+		"HttpServerraw_password": {
+			"value": ""
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://storagedatafactoryds.dfs.core.windows.net/"
 		},
@@ -18,6 +21,12 @@
 			"value": "https://api.github.com/"
 		},
 		"HttpServer_properties_typeProperties_userName": {
+			"value": "dsadmin"
+		},
+		"HttpServerraw_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/"
+		},
+		"HttpServerraw_properties_typeProperties_userName": {
 			"value": "dsadmin"
 		},
 		"containerUri": {
